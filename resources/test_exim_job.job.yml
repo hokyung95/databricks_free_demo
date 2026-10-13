@@ -43,7 +43,7 @@ resources:
       queue:
         enabled: true
       run_as:
-        service_principal_name: 218f4aed-8de0-428b-8702-c1d6f11f945e
+        service_principal_name: 218f4aed-8de0-428b-8702-c1d6f11f945eㅣ
       schedule:
         pause_status: UNPAUSED
         quartz_cron_expression: 22 0 11 * * ?
