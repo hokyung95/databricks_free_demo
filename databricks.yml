@@ -18,6 +18,8 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
+  sp_id :
+    description: SS
 
 targets:
   dev:
@@ -32,6 +34,7 @@ targets:
     variables:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
+      sp_id: 218f4aed-8de0-428b-8702-c1d6f11f945e
   prod:
     mode: production
     workspace:
@@ -41,6 +44,7 @@ targets:
     variables:
       catalog: workspace
       schema: prod
+      sp_id: d1185284-4f87-4c40-9e68-ddb31350c87e
     permissions:
       - service_principal_name: d1185284-4f87-4c40-9e68-ddb31350c87e
         level: CAN_MANAGE
