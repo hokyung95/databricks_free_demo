@@ -1,0 +1,52 @@
+resources:
+  jobs:
+    test_exim_job:
+      name: test_exim_job
+      tasks:
+        - task_key: exim_bronze
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            notebook_path: ../src/환율 Bronze 적재.ipynb
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: exim_silver
+          depends_on:
+            - task_key: exim_bronze
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            notebook_path: ../src/환율 Silver 적재.ipynb
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+        - task_key: exim_gold
+          depends_on:
+            - task_key: exim_silver
+          disabled: false
+          email_notifications: {}
+          notebook_task:
+            base_parameters:
+              search_date: "20261012"
+            notebook_path: ../src/환율 gold 적재.ipynb
+            source: WORKSPACE
+          run_if: ALL_SUCCESS
+          timeout_seconds: 0
+          webhook_notifications: {}
+      email_notifications:
+        no_alert_for_skipped_runs: false
+      max_concurrent_runs: 1
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
+      run_as:
+        service_principal_name: 218f4aed-8de0-428b-8702-c1d6f11f945e
+      schedule:
+        pause_status: UNPAUSED
+        quartz_cron_expression: 22 0 11 * * ?
+        timezone_id: Asia/Seoul
+      timeout_seconds: 0
+      webhook_notifications: {}
